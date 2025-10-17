@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para o Meu Amor! ❤️</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #ffeef8 0%,
+          #ffe4f1 50%,
+          #ffd4e9 100%
+        );
+        font-family: "Poppins", sans-serif;
+        color: #5a3a4a;
+        overflow-x: hidden;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .content-block {
+        opacity: 0;
+        margin: 50px 0;
+        animation: fadeInUp 1s ease-out forwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .heart-float {
+        position: absolute;
+        font-size: 20px;
+        color: #ff6b9d;
+        opacity: 0.6;
+        animation: float 10s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        color: #c94277;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(201, 66, 119, 0.2);
+      }
+
+      .subtitle {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        color: #8b5a7d;
+        margin-bottom: 30px;
+        font-weight: 300;
+        font-style: italic;
+      }
+
+      .message-text {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        line-height: 1.8;
+        color: #6b4c5f;
+        margin: 30px auto;
+        max-width: 600px;
+        padding: 0 20px;
+      }
+
+      .photo-container {
+        margin: 50px auto;
+        max-width: 550px;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 1s ease;
+      }
+
+      .photo-container.show {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .photo-frame {
+        padding: 15px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(201, 66, 119, 0.2),
+          0 0 0 1px rgba(255, 182, 193, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .photo-frame:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 50px rgba(201, 66, 119, 0.3),
+          0 0 0 1px rgba(255, 182, 193, 0.5);
+      }
+
+      .photo-date-overlay {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(201, 66, 119, 0.95);
+        color: white;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-size: clamp(0.85rem, 2vw, 1rem);
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .photo-container:hover .photo-date-overlay {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
+      }
+
+      .photo-frame {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 15px;
+        max-height: 500px;
+        object-fit: cover;
+      }
+
+      .photo-caption {
+        margin-top: 20px;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        color: #8b5a7d;
+        font-style: italic;
+        font-weight: 300;
+      }
+
+      .message-card {
+        background: white;
+        border-radius: 25px;
+        padding: 40px 30px;
+        margin: 40px auto;
+        max-width: 600px;
+        box-shadow: 0 10px 40px rgba(201, 66, 119, 0.15);
+        border: 1px solid rgba(255, 182, 193, 0.3);
+      }
+
+      .message-card p {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        line-height: 1.9;
+        color: #6b4c5f;
+        margin: 15px 0;
+      }
+
+      .big-heart {
+        font-size: clamp(4rem, 12vw, 7rem);
+        color: #ff6b9d;
+        animation: heartbeat 1.5s ease-in-out infinite;
+        margin: 50px 0;
+        filter: drop-shadow(0 5px 15px rgba(255, 107, 157, 0.4));
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.15);
+        }
+        50% {
+          transform: scale(1);
+        }
+      }
+
+      .date-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff6b9d, #c94277);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        font-weight: 600;
+        margin: 20px 0;
+        box-shadow: 0 5px 20px rgba(201, 66, 119, 0.3);
+      }
+
+      .love-quote {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        color: #c94277;
+        margin: 40px auto;
+        max-width: 700px;
+        padding: 0 20px;
+        font-weight: 700;
+      }
+
+      .divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #ff6b9d, transparent);
+        margin: 30px auto;
+      }
+
+      .music-control {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #ff6b9d, #c94277);
+        color: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(201, 66, 119, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .music-control:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 30px rgba(201, 66, 119, 0.6);
+      }
+
+      .music-control:active {
+        transform: scale(0.95);
+      }
+
+      .pause-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 110px;
+        background: linear-gradient(135deg, #8b5a7d, #6b4c5f);
+        color: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(139, 90, 125, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pause-btn.show {
+        display: flex;
+      }
+
+      .pause-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 30px rgba(139, 90, 125, 0.6);
+      }
+
+      .pause-btn:active {
+        transform: scale(0.95);
+      }
+
+      .music-menu {
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 10px 40px rgba(201, 66, 119, 0.3);
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 999;
+        min-width: 250px;
+      }
+
+      .music-menu.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+
+      .music-menu h3 {
+        font-family: "Dancing Script", cursive;
+        color: #c94277;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        text-align: center;
+      }
+
+      .music-option {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #ffeef8;
+        border: 2px solid transparent;
+      }
+
+      .music-option:hover {
+        background: #ffe4f1;
+        transform: translateX(5px);
+      }
+
+      .music-option.active {
+        background: linear-gradient(135deg, #ff6b9d, #c94277);
+        color: white;
+        border-color: #c94277;
+      }
+
+      .music-option span {
+        margin-left: 10px;
+        font-size: 0.95rem;
+      }
+
+      .music-icon {
+        font-size: 1.2rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .photo-frame {
+          padding: 10px;
+        }
+
+        .message-card {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Controle de música -->
+    <button class="music-control" id="musicBtn" title="Escolher música">
+      🎵
+    </button>
+
+    <!-- Botão de pause/play -->
+    <button class="pause-btn" id="pauseBtn" title="Pausar música">⏸️</button>
+
+    <!-- Menu de músicas -->
+    <div class="music-menu" id="musicMenu">
+      <h3>Escolha uma música 💕</h3>
+      <div class="music-options" id="musicOptions">
+        <!-- As opções serão inseridas aqui -->
+      </div>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+      <source id="audioSource" src="" type="audio/mpeg" />
+    </audio>
+
+    <!-- Corações flutuantes -->
+    <div class="floating-hearts" id="hearts"></div>
+
+    <div class="container" id="mainContainer">
+      <!-- O conteúdo será inserido dinamicamente -->
+    </div>
+
+    <script>
+      // CONFIGURE SUAS MÚSICAS AQUI
+      const musicPlaylist = [
+        {
+          name: "Yesterday - Donny Hathaway",
+          url: "Yesterday.mpeg",
+          icon: "💕",
+        },
+        {
+          name: "When did you stop loving me - Marvin Gaye",
+          url: "Marvin.mpeg",
+          icon: "❤️",
+        },
+        {
+          name: "Back to Your Place - October London",
+          url: "Youplace.mpeg",
+          icon: "💖",
+        },
+        {
+          name: "Ivy - Frank Ocean",
+          url: "Ivy.mpeg",
+          icon: "💗",
+        },
+         {
+          name: "Ainda bem - Marisa Monte",
+          url: "Ainda bem.mpeg",
+          icon: "💗",
+        },
+        
+      ];
+
+      // Controle de música
+      const musicBtn = document.getElementById("musicBtn");
+      const pauseBtn = document.getElementById("pauseBtn");
+      const musicMenu = document.getElementById("musicMenu");
+      const musicOptions = document.getElementById("musicOptions");
+      const music = document.getElementById("backgroundMusic");
+      const audioSource = document.getElementById("audioSource");
+      let isPlaying = false;
+      let menuOpen = false;
+      let currentMusicIndex = -1;
+
+      // Criar opções de música
+      musicPlaylist.forEach((song, index) => {
+        const option = document.createElement("div");
+        option.className = "music-option";
+        option.innerHTML = `
+                <span class="music-icon">${song.icon}</span>
+                <span>${song.name}</span>
+            `;
+        option.addEventListener("click", () => selectMusic(index));
+        musicOptions.appendChild(option);
+      });
+
+      // Abrir/fechar menu
+      musicBtn.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          musicMenu.classList.add("show");
+        } else {
+          musicMenu.classList.remove("show");
+        }
+      });
+
+      // Controle de pause/play
+      pauseBtn.addEventListener("click", () => {
+        if (isPlaying) {
+          music.pause();
+          pauseBtn.textContent = "▶️";
+          pauseBtn.title = "Continuar música";
+          isPlaying = false;
+        } else {
+          music.play();
+          pauseBtn.textContent = "⏸️";
+          pauseBtn.title = "Pausar música";
+          isPlaying = true;
+        }
+      });
+
+      // Fechar menu ao clicar fora
+      document.addEventListener("click", (e) => {
+        if (!musicBtn.contains(e.target) && !musicMenu.contains(e.target)) {
+          musicMenu.classList.remove("show");
+          menuOpen = false;
+        }
+      });
+
+      // Selecionar música
+      function selectMusic(index) {
+        // Remove active de todas as opções
+        document.querySelectorAll(".music-option").forEach((opt) => {
+          opt.classList.remove("active");
+        });
+
+        // Marca a opção selecionada
+        musicOptions.children[index].classList.add("active");
+
+        currentMusicIndex = index;
+        const selectedSong = musicPlaylist[index];
+
+        // Troca a música
+        audioSource.src = selectedSong.url;
+        music.load();
+        music.play();
+
+        // Atualiza os botões
+        musicBtn.textContent = "🎵";
+        musicBtn.title = "Escolher outra música";
+        pauseBtn.classList.add("show");
+        pauseBtn.textContent = "⏸️";
+        pauseBtn.title = "Pausar música";
+        isPlaying = true;
+
+        // Fecha o menu
+        setTimeout(() => {
+          musicMenu.classList.remove("show");
+          menuOpen = false;
+        }, 300);
+      }
+      // Criar corações flutuantes
+      function createFloatingHearts() {
+        const heartsContainer = document.getElementById("hearts");
+        const heartSymbols = ["❤️", "💕", "💗", "💖"];
+
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart-float";
+          heart.textContent =
+            heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+          heart.style.left = Math.random() * 100 + "%";
+          heart.style.animationDuration = Math.random() * 5 + 8 + "s";
+          heart.style.animationDelay = Math.random() * 2 + "s";
+          heartsContainer.appendChild(heart);
+
+          setTimeout(() => heart.remove(), 12000);
+        }, 3000);
+      }
+
+      // CONFIGURAÇÃO: Personalize suas mensagens e fotos aqui
+      const content = [
+        {
+          type: "title",
+          text: "Feliz Aniversário de 2 anos de Namoro!",
+          delay: 1000,
+        },
+        {
+          type: "subtitle",
+          text: "Para o amor da minha vida ❤️",
+          delay: 1500,
+        },
+        {
+          type: "date",
+          text: "Celebrando nosso amor • 17/10/2025",
+          delay: 2000,
+        },
+        {
+          type: "message",
+          text: "Cada dia ao seu lado é um presente. Você transformou minha vida de uma forma que eu nunca imaginei ser possível.",
+          delay: 2500,
+        },
+        {
+          type: "photo",
+          src: "foto1.jpeg", // Corrigido o caminho da imagem
+          caption: "Nosso primeiro momento juntos 💕",
+          date: "15 de novembro, 2023",
+          delay: 3000,
+        },
+        {
+          type: "quote",
+          text: "Você é o meu lugar favorito no mundo",
+          delay: 3000,
+        },
+        {
+          type: "card",
+          text: "Lembro como se fosse ontem do nosso primeiro encontro, do primeiro sorriso, do primeiro beijo... Cada memória com você é algo único.",
+          delay: 3000,
+        },
+        {
+          type: "photo",
+          src: "foto 2.jpeg", // Corrigido o caminho da imagem
+          caption: "Criando memórias inesquecíveis 🌟",
+          date: "20 de Abril, 2024",
+          delay: 3000,
+        },
+        {
+          type: "message",
+          text: "Você me faz querer ser uma pessoa melhor a cada dia. Seu amor me completa.",
+          delay: 3000,
+        },
+        {
+          type: "photo",
+          src: "foto 3.jpeg", 
+          caption: "Nossos momentos são mágicos ✨",
+          date: "10 de Junho, 2025",
+          delay: 3000,
+        },
+        {
+          type: "quote",
+          text: "Em você me inspiro a ser a melhor versão de mim mesmo",
+          delay: 3000,
+        },
+        {
+          type: "card",
+          text: "Obrigado por cada risada, cada abraço, cada palavra de carinho. Obrigado por ser você, por me amar, por fazer da nossa história algo tão especial.",
+          delay: 3000,
+        },
+        {
+          type: "photo",
+          src: "foto 4.jpeg",
+          caption: "Você é minha felicidade 💖",
+          date: "25 de Agosto, 2025",
+          delay: 3000,
+        },
+        {
+          type: "divider",
+          delay: 2000,
+        },
+        {
+          type: "heart",
+          delay: 2000,
+        },
+        {
+          type: "message",
+          text: "Que venham muitos e muitos aniversários juntos! Te amo infinitamente! 💕",
+          delay: 2000,
+        },
+      ];
+
+      const container = document.getElementById("mainContainer");
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function showContent(item, index) {
+        const block = document.createElement("div");
+        block.className = "content-block";
+        block.style.animationDelay = "0s";
+
+        if (item.type === "title") {
+          block.innerHTML = `<h1>${item.text}</h1>`;
+        } else if (item.type === "subtitle") {
+          block.innerHTML = `<p class="subtitle">${item.text}</p>`;
+        } else if (item.type === "date") {
+          block.innerHTML = `<div class="date-badge">${item.text}</div>`;
+        } else if (item.type === "message") {
+          block.innerHTML = `<p class="message-text">${item.text}</p>`;
+        } else if (item.type === "quote") {
+          block.innerHTML = `<p class="love-quote">"${item.text}"</p>`;
+        } else if (item.type === "card") {
+          block.innerHTML = `
+                    <div class="message-card">
+                        <p>${item.text}</p>
+                    </div>
+                `;
+        } else if (item.type === "photo") {
+          block.innerHTML = `
+                    <div class="photo-container">
+                        <div class="photo-frame">
+                            <img src="${item.src}" alt="Foto do casal">
+                            <div class="photo-date-overlay">${item.date}</div>
+                        </div>
+                        <p class="photo-caption">${item.caption}</p>
+                    </div>
+                `;
+          container.appendChild(block);
+          await sleep(300);
+          block.querySelector(".photo-container").classList.add("show");
+          return;
+        } else if (item.type === "heart") {
+          block.innerHTML = '<div class="big-heart">❤️</div>';
+        } else if (item.type === "divider") {
+          block.innerHTML = '<div class="divider"></div>';
+        }
+
+        container.appendChild(block);
+      }
+
+      async function runSequence() {
+        for (let i = 0; i < content.length; i++) {
+          await showContent(content[i], i);
+          await sleep(content[i].delay);
+        }
+      }
+
+      // Inicia quando a página carrega
+      window.addEventListener("load", () => {
+        createFloatingHearts();
+        setTimeout(runSequence, 500);
+      });
+    </script>
+  </body>
+</html>
